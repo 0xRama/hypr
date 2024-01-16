@@ -1,32 +1,31 @@
 {
     "layer": "top",
-    "position": "bottom",
+    "position": "top",
     "mod": "dock",
     "exclusive": true,
     "passthrough": false,
     "gtk-layer-shell": true,
     "height": 20,
     "modules-left": [
-        "custom/launch_wofi",
         "custom/power_btn",
         "custom/lock_screen",
-        "wlr/workspaces",
-        "wlr/taskbar"
+        "wlr/workspaces"
+    ],
+    "modules-center": [
+        "idle_inhibitor",
+        "clock",
+        "custom/updates"
     ],
     "modules-right": [
         "cpu",
-        "memory",
-        "disk",
-        "temperature",
-        "custom/power_profile",
-        "battery",
         "pulseaudio",
         "pulseaudio#microphone",
         "backlight",
         "tray",
-        "custom/weather",
-        "custom/updates",
-        "clock",
+        "temperature",
+        "custom/power_profile",
+        "battery",
+        "hyprland/language",
         "custom/myhyprv",
         "custom/light_dark"
     ],
@@ -37,10 +36,21 @@
         "~/.config/HyprV/waybar/conf/hyprv-util.jsonc"
     ],
 
-    "custom/launch_wofi": {
-        "format": "",
-        "on-click": "pkill wofi || wofi -n -c ~/.config/HyprV/wofi/config-bmenu",
-        "tooltip": false
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "󰛐",
+            "deactivated": "󰛑"
+        },
+        "tooltip": true
+    },
+
+    "hyprland/language": {
+        "interval": 30,
+        "format": " {}",
+        "keyboard-name": "logitech-pro-gaming-keyboard",
+        "on-click": "~/.config/HyprV/hyprv_util swkb",
+        "signal": 8
     },
 
     "custom/power_btn": {
@@ -48,7 +58,6 @@
         "on-click": "sh -c '(sleep 0.5s; wlogout --protocol layer-shell)' & disown",
         "tooltip": false
     },
-
 
     "custom/lock_screen": {
         "format": "",
@@ -74,21 +83,6 @@
         }
     },
 
-    "wlr/taskbar": {
-        "format": "{icon}{name}",
-        "icon-size": 16,
-        "all-outputs": true,
-        "tooltip-format": "{title}",
-        "on-click": "activate",
-        "on-click-middle": "close",
-        "ignore-list": [
-            "wofi"
-         ],
-	    "app_ids-mapping": {
-	        "steam_app_39210": "Final Fantasy 14"
-	    }
-    },
-
     "cpu": {
         "interval": 10,
         "format": "",
@@ -98,31 +92,9 @@
         "on-click": "kitty --start-as=fullscreen --title btop sh -c 'btop'"
     },
 
-    "memory": {
-        "interval": 30,
-        "format": "",
-        "format-alt-click": "click-right",
-        "format-alt": " {}%",
-        "max-length": 10,
-        "tooltip": true,
-        "tooltip-format": "Memory - {used:0.1f}GB used",
-        "on-click": "kitty --start-as=fullscreen --title btop sh -c 'btop'"
-    },
-    
-    "disk": {
-        "interval": 30,
-        "format": "󰋊",
-        "path": "/",
-        "format-alt-click": "click-right",
-        "format-alt": "󰋊 {percentage_used}%",
-        "tooltip": true,
-        "tooltip-format": "HDD - {used} used out of {total} on {path} ({percentage_used}%)",
-        "on-click": "kitty --start-as=fullscreen --title btop sh -c 'btop'"
-    },
-
     "battery": {
         "states": {
-            "good": 95,
+            "good": 80,
             "warning": 30,
             "critical": 20
         },

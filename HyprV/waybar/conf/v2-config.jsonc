@@ -6,10 +6,38 @@
     "passthrough": false,
     "gtk-layer-shell": true,
     "height": 50,
-    "modules-left": ["custom/launch_wofi","wlr/workspaces","cpu","memory","disk","hyprland/window"],
-    "modules-center": ["custom/lock_screen","custom/updates","clock","custom/power_btn"],
-    "modules-right": ["temperature","custom/power_profile","battery","backlight","pulseaudio","pulseaudio#microphone","tray","custom/weather","custom/myhyprv","custom/light_dark"],
-    "include": ["~/.config/HyprV/waybar/conf/asus-rog.jsonc", "~/.config/HyprV/waybar/conf/hyprv-util.jsonc"],
+    "modules-left": [
+        "custom/launch_wofi",
+        "wlr/workspaces",
+        "cpu",
+        "memory",
+        "disk",
+        "hyprland/window"
+    ],
+    "modules-center": [
+        "custom/lock_screen",
+        "custom/updates",
+        "clock",
+        "custom/power_btn"
+    ],
+    "modules-right": [
+        "temperature",
+        "custom/power_profile",
+        "battery",
+        "backlight",
+        "pulseaudio",
+        "pulseaudio#microphone",
+        "tray",
+        "custom/weather",
+        "custom/myhyprv",
+        "custom/light_dark"
+    ],
+
+    "include": [
+        "~/.config/HyprV/waybar/conf/mesu.jsonc",
+        "~/.config/HyprV/waybar/conf/asus-rog.jsonc",
+        "~/.config/HyprV/waybar/conf/hyprv-util.jsonc"
+    ],
 
     "hyprland/window": {
         "format": "{}"
@@ -17,7 +45,7 @@
 
     "custom/launch_wofi": {
         "format": "",
-        "on-click": "pkill wofi || wofi",
+        "on-click": "sh -c '(sleep 0.5s; wofi)' & disown",
         "tooltip": false
     },
 
@@ -84,30 +112,15 @@
         }
     },
 
-   "custom/weather": {
-        //shows the current weather and forecast
-        "tooltip" : true,
-        "format" : "{}",
-        "interval" : 30,
-        "exec" : "~/.config/HyprV/waybar/scripts/waybar-wttr.py",
-        "return-type" : "json"
-    },
-
     "tray": {
         "icon-size": 18,
         "spacing": 10
     },
 
-    "clock": {
-        "format": "{:%I:%M %p}",
-        "tooltip": true,
-        "tooltip-format": "{: %A, %B %e %Y}"
-    },
-
     "backlight": {
         "device": "intel_backlight",
         "format": "{icon} {percent}%",
-        "format-icons": ["", "", ""],
+        "format-icons": ["󰃞", "󰃟", "󰃠"],
         "on-scroll-up": "~/.config/HyprV/waybar/scripts/brightness --inc",
         "on-scroll-down": "~/.config/HyprV/waybar/scripts/brightness --dec",
         "min-length": 6
@@ -123,7 +136,7 @@
         "format-charging": " {capacity}%",
         "format-plugged": " {capacity}%",
         "format-alt": "{time} {icon}",
-        "format-icons": ["", "", "", "", "", "", "", "", "", "", ""]
+        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
     },
 
     "pulseaudio": {
@@ -147,20 +160,12 @@
 
     "pulseaudio#microphone": {
         "format": "{format_source}",
-        "format-source": " {volume}%",
-        "format-source-muted": "",
+        "format-source": " {volume}%",
+        "format-source-muted": "",
         "on-click": "~/.config/HyprV/waybar/scripts/volume --toggle-mic",
         "on-click-right": "pavucontrol",
         "on-scroll-up": "~/.config/HyprV/waybar/scripts/volume --mic-inc",
         "on-scroll-down": "~/.config/HyprV/waybar/scripts/volume --mic-dec",
         "scroll-step": 5
-    },
-    
-    "temperature": {
-        "thermal-zone": 1,
-        "format": " {temperatureF}°F",
-        "critical-threshold": 70,
-        "format-critical": " {temperatureC}°C",
-        "on-click": "kitty --start-as=fullscreen --title btop sh -c 'btop'"
     }
 }
